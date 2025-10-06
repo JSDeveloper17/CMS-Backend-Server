@@ -1,0 +1,17 @@
+{
+  "name": "cms-server",
+  "version": "1.0.0",
+  "description": "Contemt Manegement System Project Backend Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "server"
+  ],
+  "author": "Deepak Gupta",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

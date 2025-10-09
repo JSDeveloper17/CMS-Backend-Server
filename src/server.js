@@ -4,11 +4,13 @@ dotenv.config()
 
 
 const  mongoose= require("mongoose")
+const projectRouter = require("./routes/project.Routes.js")
 const app = express()
+
 const port = process.env.PORT || 5000;
-app.use("/", (req,res)=>{
-    res.send("hello")
-})
+
+app.use(express.json());
+app.use("/", projectRouter)
 
 async function Bootstrap() {
    try{

@@ -1,0 +1,11 @@
+POST http://localhost:6000/api/project
+Content-Type:application/json
+
+{
+  "title": "CodeBook",
+  "description": "A movie search web app using TMDB API.",
+  "technologies": ["React", "Tailwind CSS", "API"],
+  "image": "https://cinemate-movie-dg.netlify.app/preview.png",
+  "githubLink": "https://github.com/yourname/cinemate",
+  "liveLink": "https://cinemate-movie-dg.netlify.app/"
+}

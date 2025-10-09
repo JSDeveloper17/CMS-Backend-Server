@@ -1,0 +1,4 @@
+GET http://localhost:6000/api/projects
+
+
+GET http://localhost:6000/api/projects/68e7ecb6db3e8ff0f6292ff1

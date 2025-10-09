@@ -1,0 +1,19 @@
+PUT http://localhost:6000/api/projects/68e7ecb6db3e8ff0f6292ff1
+Content-Type:application/json
+
+{
+  "title": "Cinemate Movie App",
+  "description": "An updated version of the Cinemate movie web app with better UI and animations.",
+  "technologies": ["React", "Tailwind CSS", "API", "Framer Motion"],
+  "featured": false
+}
+
+
+PUT http://localhost:6000/api/blogs/68e80c514b9a0b1af3c9494b
+Content-Type:application/json
+{
+  "title": "Building a CMS with Node.js (Updated)",
+  "content": "Updated blog post with more detailed explanations."
+}
+
+

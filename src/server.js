@@ -3,14 +3,19 @@ const dotenv = require("dotenv")
 dotenv.config()
 
 
+
 const  mongoose= require("mongoose")
 const projectRouter = require("./routes/project.Routes.js")
+const blogRouter = require("./routes/blog.Routes.js")
+const authRouter = require("./routes/auth.Routes.js")
 const app = express()
 
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use("/", projectRouter)
+app.use("/", blogRouter)
+app.use("/api/auth", authRouter)
 
 async function Bootstrap() {
    try{

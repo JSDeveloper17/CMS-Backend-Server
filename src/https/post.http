@@ -9,3 +9,13 @@ Content-Type:application/json
   "githubLink": "https://github.com/yourname/cinemate",
   "liveLink": "https://cinemate-movie-dg.netlify.app/"
 }
+
+
+
+POST http://localhost:6000/api/blogs
+Content-Type:application/json
+
+{
+  "title": "Building a CMS with Express Js",
+  "content": "This blog explains how to build a CMS backend using Node.js and Express."
+}

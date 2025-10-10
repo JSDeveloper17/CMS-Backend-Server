@@ -22,7 +22,12 @@ const projectSchema = new Schema({
     },
     liveLink: {
       type: String,
-    }
+    },
+    user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  }
 }, {timestamps:true, versionKey:false})
 
 const Project = model("Project", projectSchema)

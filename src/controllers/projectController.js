@@ -9,35 +9,23 @@ async function createProject(req,res) {
     console.log("Req Method : ", req.method)
     console.log("Req Url : ", req.url)
     try{
-        const { title, description, technologies, githubLink, liveLink, featured } = req.body;
-    let imageUrl = "";
+        const { title, description, githubLink, liveLink } = req.body;
 
-    if (req.file) {
-      // Upload to Cloudinary
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: "portfolio_projects",
-      });
+    // Cloudinary upload handled by multer middleware earlier
+        const image = req.file ? req.file.path : null;
 
-      // Get secure Cloudinary URL
-      imageUrl = result.secure_url;
-
-      // Delete local file
-      fs.unlinkSync(req.file.path);
-    }
-
-    // Save project to MongoDB
-    const newProject = await Project.create({
-      title,
-      description,
-      technologies: technologies ? technologies.split(",") : [],
-      githubLink,
-      liveLink,
-      featured,
-      image: imageUrl, // 👈 Cloudinary image link saved here
-    });
-     res.status(StatusCodes.CREATED).json(newProject)
-    }
-    catch(error){
+        const newProject = await Project.create({
+            title,
+            description,
+            githubLink,
+            liveLink,
+            image,
+            user: req.user._id, // ✅ link project to logged-in user
+       });
+        res.status(StatusCodes.CREATED).json(
+          {message: "Project created successfully",newProject})
+      }
+      catch(error){
         console.log(error);
         res.status(StatusCodes.BAD_REQUEST).json({
             message:"Invalid Data", error:error.message
@@ -49,7 +37,7 @@ async function getProject(req,res) {
     console.log("Req Method : ", req.method)
     console.log("Req Url : ", req.url)
      try{
-         const allProject = await Project.find().sort({createdAt:-1});
+         const allProject = await Project.find({ user: req.user._id });
          
          res.status(StatusCodes.OK).json(allProject)
         }
@@ -78,14 +66,27 @@ const updateProject = async (req, res) => {
     console.log("Req Method : ", req.method)
     console.log("Req Url : ", req.url)
   try {
-    const updated = await Project.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const updated = await Project.findById(req.params.id);
+
     if (!updated) return res.status(404).json({ message: "Project not found" });
-    res.status(200).json(updated);
+
+    if (updated.user.toString() !== req.user._id.toString())
+      return res.status(StatusCodes.FORBIDDEN).json({ message: "Not authorized" });
+
+    // Update image if new one is uploaded
+    const image = req.file ? req.file.path : updated.image;
+
+    const updatedProject = await Project.findByIdAndUpdate(
+      req.params.id,
+      {
+        ...req.body,
+        image,
+      },
+      { new: true }
+    );
+    res.status(StatusCodes.OK).json(updatedProject);
   } catch (error) {
-    res.status(400).json({ message: "Invalid data", error: error.message });
+    res.status(StatusCodes.NOT_FOUND).json({ message: "Invalid data", error: error.message });
   }
 };
 
@@ -95,9 +96,14 @@ const deleteProject = async (req, res) => {
     console.log("Req Method : ", req.method)
     console.log("Req Url : ", req.url)
   try {
-    const deleted = await Project.findByIdAndDelete(req.params.id);
+    const deleted = await Project.findById(req.params.id);
+
     if (!deleted) return res.status(404).json({ message: "Project not found" });
-    res.status(200).json({ message: "Project deleted successfully" });
+    if (deleted.user.toString() !== req.user._id.toString())
+      return res.status(StatusCodes.FORBIDDEN).json({ message: "Not authorized" });
+
+    await deleted.deleteOne();
+    res.status(StatusCodes.OK).json({ message: "Project deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "Server Error", error: error.message });
   }

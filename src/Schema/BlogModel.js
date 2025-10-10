@@ -9,7 +9,12 @@ const blogSchema = new Schema({
     content: {
       type: String,
       required: true,
-    }
+    },
+    user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  }
 }, {timestamps:true, versionKey:false})
 
 const Blog = model("Blog", blogSchema)

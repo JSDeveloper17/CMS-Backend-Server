@@ -3,4 +3,5 @@ DELETE http://localhost:6000/api/projects/68e766fa5691320a933f7013
 
 
 
-DELETE http://localhost:6000/api/blogs/68e80c514b9a0b1af3c9494b
+DELETE http://localhost:6000/api/blogs/68e8a80277e43dda65f84f1c
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGU4OWNhMDBlNzRkZTI5MTk0ZmQ5NzIiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwiaWF0IjoxNzYwMDc3ODA1LCJleHAiOjE3NjAxNjQyMDV9.8ikOCMQ0yWEZShNORj4_lyHwyf7T5n_G_97D-kTBOh8

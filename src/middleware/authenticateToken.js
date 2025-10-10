@@ -14,7 +14,7 @@ const authentication = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    req.admin = decoded; // attach admin info to request
+    req.user = decoded; // attach admin info to request
     next();
   } catch (error) {
     res.status(StatusCodes.UNAUTHORIZED).json({ message: "Token invalid or expired" });

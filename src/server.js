@@ -27,7 +27,10 @@ app.use("/api/auth", authRouter)
 async function Bootstrap() {
    try{
     mongoose.connect(process.env.MONGODB_URL,
-        {dbName:process.env.DATABASE_NAME}
+        {dbName:process.env.DATABASE_NAME,
+         useNewUrlParser: true,
+         useUnifiedTopology: true,
+        }
     )
       console.log("Connected to MongoDB")
       app.listen(port, ()=>{

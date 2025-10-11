@@ -27,7 +27,7 @@ app.use("/api/auth", authRouter)
 async function Bootstrap() {
    try{
     mongoose.connect(process.env.MONGODB_URL,
-        {dbName:"CMS"}
+        {dbName:process.env.DATABASE_NAME}
     )
       console.log("Connected to MongoDB")
       app.listen(port, ()=>{

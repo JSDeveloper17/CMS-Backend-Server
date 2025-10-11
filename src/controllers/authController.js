@@ -23,8 +23,8 @@ async function userRegister(req,res) {
             password:hashedPassword
         })
         return res.status(StatusCodes.CREATED).json({
-           message: "Admin registered successfully",
-           admin: { id: newUser._id, email: newUser.email },
+           message: "User registered successfully",
+           user: { id: newUser._id, email: newUser.email },
         })
     }
     catch(error){
@@ -58,7 +58,7 @@ async function loginUser(req,res) {
         return res.status(StatusCodes.OK).json({
             message: "Login successful",
             token:token,
-            admin: { id: user._id, name: user.name, email: user.email },
+            user: { id: user._id, name: user.name, email: user.email },
         })
     }
     catch(error){

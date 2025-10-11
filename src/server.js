@@ -14,7 +14,7 @@ const cors = require('cors');
 
 // Allow requests from your frontend origin
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'https://cms-eazybyts.netlify.app/',
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Add other methods if needed
   allowedHeaders: ['Content-Type', 'Authorization'], // If using tokens later
 }));

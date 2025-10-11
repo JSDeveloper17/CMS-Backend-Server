@@ -27,12 +27,13 @@ app.use("/api/auth", authRouter)
 async function Bootstrap() {
    try{
     mongoose.connect(process.env.MONGODB_URL,
-        {dbName:process.env.DATABASE_NAME,
-         useNewUrlParser: true,
-         useUnifiedTopology: true,
-        }
+        {dbName:process.env.DATABASE_NAME}
     )
       console.log("Connected to MongoDB")
+
+      app.get("/", (req, res) => {
+      res.send("✅ CMS Backend is running successfully on Render!");
+    });
       app.listen(port, ()=>{
           console.log(`app is listening on port ${port}`)
       })

@@ -11,6 +11,7 @@ const app = express()
 const port = process.env.PORT || 5000;
 
 const cors = require('cors');
+const contactRouter = require("./routes/contact.Routes.js")
 
 // Allow requests from your frontend origin
 app.use(cors({
@@ -22,6 +23,7 @@ app.use(cors({
 app.use(express.json());
 app.use("/", projectRouter)
 app.use("/", blogRouter)
+app.use("/", contactRouter)
 app.use("/api/auth", authRouter)
 
 async function Bootstrap() {
@@ -32,7 +34,7 @@ async function Bootstrap() {
       console.log("Connected to MongoDB")
 
       app.get("/", (req, res) => {
-      res.send("✅ CMS Backend is running successfully on Render!");
+      res.send(" CMS Backend is running successfully on Render!");
     });
       app.listen(port, ()=>{
           console.log(`app is listening on port ${port}`)

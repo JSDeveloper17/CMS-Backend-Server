@@ -1,16 +1,19 @@
 const multer = require("multer");
-const path = require("path");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary.js"); // adjust path if needed
 
-// Set up local storage temporarily
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // create 'uploads' folder in root
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+// Configure Cloudinary storage for Multer
+// Create Cloudinary storage configuration
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "cms_projects", // Folder name on Cloudinary
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+    transformation: [{ width: 800, height: 600, crop: "limit" }], // optional resize
   },
 });
 
+// Initialize multer with Cloudinary storage
 const upload = multer({ storage });
 
 module.exports = upload;
